@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script
+  src="https://code.jquery.com/jquery-3.7.1.js"
+  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+  crossorigin="anonymous"></script>
+
+    <title>home</title>
+</head>
+
+<body style="background-color: black;" >
+<div class="container-fluid d-flex justify-content-center" style=" margin-top: 10%;">
+    <p id="ms" , style="color: wheat;"></p>
+    <form id="form" class="row g-3">
+        <!-- <input style=" background-color: rgba(255, 255, 255, 0.756); box-shadow: 3px 3px  30px  rgb(127, 179, 191);"  class="form-control" type="text" placeholder="name">
+        <input style="  background-color: rgba(255, 255, 255, 0.756); box-shadow: 3px 3px  30px  rgb(127, 179, 191);" class="form-control"  type="email" placeholder="email">
+        <input style="  background-color: rgba(255, 255, 255, 0.756); box-shadow: 3px 3px  30px  rgb(127, 179, 191);" class="form-control"  type="text" placeholder="issue"> -->
+        <textarea id="msg" style="  background-color: rgba(255, 255, 255, 0.756); height: 150px; box-shadow: 3px 3px  30px  rgb(127, 179, 191); " class="form-control"  placeholder="content" type="text"  placeholder="content" type="text" ></textarea>
+        <!-- <input class="form-control"  placeholder="name"> -->
+        <button class="btn btn-primary" type="submit" >send your ticket</button>
+    </form>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
+
+    const form = document.getElementById('form');
+    const input = document.getElementById('msg');
+    form.addEventListener('submit' , (e)=>{
+        e.preventDefault();
+        if (input.value){
+            socket.emit('message' , input.value);
+            input.value = ''
+        }
+    })
+    // socket.emit('create', 'room1');
+    
+    socket.on('nmessage' , (msg)=>{
+        document.getElementById('ms').innerHTML = msg
+        // console.log(msg) 
+    })
+</script>
+
+
+
+</body>
+
+
+
+
+</html>
